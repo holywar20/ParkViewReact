@@ -4,19 +4,42 @@ import Login 		from '../screens/login';
 import Contacts 	from '../screens/contacts';
 import CheckIn		from '../screens/checkin';
 import Register	from '../screens/register';
+import Chat			from '../screens/chat';
+import Call			from '../screens/call';
 
 const stackNavigator = createStackNavigator({
 	LoginScreen : { 
-		screen : Login
+		screen : Login,
+		navigationOptions: () => ({
+			header : null
+		})
 	} ,
 	ContactsScreen : { 
 		screen : Contacts
 	},
 	CheckInScreen :{ 
-		screen : CheckIn
+		screen : CheckIn,
+		navigationOptions: () => ({
+			
+		})
 	} ,
 	RegisterScreen : { 
-		screen : Register
+		screen : Register, 
+		navigationOptions: () =>({
+
+		})
+	}, 
+	ChatScreen :{ 
+		screen : Chat, 
+		navigationOptions:() =>({
+
+		})
+	},
+	CallScreen : {
+		screen : Call, 
+		navigationOptions:() =>({
+
+		})
 	}
 });
 
