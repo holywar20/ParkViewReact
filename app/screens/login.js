@@ -1,27 +1,26 @@
 import React, {Component} from 'react';
-import { Image, KeyboardAvoidingView, Text, TextInput, View, Button, StyleSheet} from "react-native";
-import { Keyboard } from 'react-native';
+import { Image, Keyboard, Text, View, StyleSheet} from "react-native";
+import { Checkbox , Button, TextInput, Card } from 'react-native-paper';
 /*
 	Color Pallet
-
 	Background Blue for forms #28546C
 */ 
-
 export default class Login extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
 			logoDisplay : 1,
 			username : null,
-			password : null
+			password : null,
+			checked : true
 		}
-		console.log(props);
+
 		this.navigation = props.navigation;
 	}
 
-	componentDidMount(){
+	componentDidMount(){ 
 		this.keyboardUp = Keyboard.addListener(
-			'keyboardDidShow' , () => {
+			'keyboardDidShow' , () => { // A hack that hides the logo when keyboard is up to keep alignment straight. 
 				this.setState({ logoDisplay : null });
 			}
 		)
@@ -42,42 +41,59 @@ export default class Login extends React.Component{
 		return ( 
 		<View style ={styles.mainContainer}>
 			<View style={styles.welcomeContainer}>
-				<Text style={styles.welcome}>Welcome</Text>
+				<Text style={styles.welcome}>A ParkView Demo</Text>
 			</View>
 			
-			<View style={styles.inputContainer} enabled>
-				<Text style={styles.text}>Username</Text>
-				<TextInput
-					autoComplete={'username'}
-					selectionColor={'black'}
-					style={styles.input}
-					value={this.state.username}
-					onChangeText={ (text) => this.setState({username : this.state.username}) }
-				></TextInput>
-				<Text style={styles.text}>Password</Text>
-				<TextInput
-					autoComplete={'password'}
-					selectionColor={'black'}
-					style={styles.input}
-					value={this.state.password}
-					onChangeText={ (text) => this.setState({password: this.state.password}) }
-				></TextInput>
-				<Button style={styles.button} title="Login"
-					onPress={ () => { this.loginUser() }  }
-				>Login</Button>
-			</View>
+			<Card>
+				<Card.Content>
+
+					<TextInput mode="outlined" style={styles.input}
+						label="Username"
+						value={this.state.username}
+						onChangeText={ text => { this.setState( { username : text } ) } }
+					></TextInput>
+
+					<TextInput mode="outlined" style={styles.input}
+						label="Password"
+						value={this.state.password}
+						onChangeText={ text => { this.setState( {password : text } ) } }
+					></TextInput>
+
+					<View style={styles.rowBox}>
+						<Text style={styles.text}>Remember Me</Text>
+						<Checkbox 	status={ this.state.checked ? 'checked' : 'unchecked'}
+										onPress={ () => {this.toggleCheck() }}/>
+					</View>
+
+					<Button 
+						style={styles.button} 
+						mode="contained"
+						accessabilityLabel="Login"
+						onPress={ () => { this.loginUser() }  }
+					>Login</Button>
+
+				</Card.Content>
+			</Card>
 
 			{ this.state.logoDisplay && 
 			<View style={styles.logoContainer}>
+				<Text></Text>
 				<Image style={styles.logo} source={require('../assetts/1280pxAvaya.png')}/>
 			</View>}
 		</View>
 		);
 	}
 
+	toggleCheck(){
+		if(this.state.checked == true )
+			this.setState({ checked : false })
+		else
+			this.setState({ checked : true })
+	}
+
 	loginUser(){
 		console.log("logging in user");
-		// TODO - add in an auth check.
+
 		this.navigation.navigate('CheckInScreen', { username : this.state.username } );
 	};
 }
@@ -97,18 +113,16 @@ const styles = StyleSheet.create({
 		textAlign: 'center'
 	},
 	inputContainer: {
-		flex: 1.2,
-		backgroundColor: '#28546C',
+		flex: 1.5,
 		justifyContent: 'center',
 		borderRadius: 10, 
-		borderWidth: 1,
-		borderColor: 'black',
 		padding: 10,
 		margin : 10
 	},
 	logoContainer: {
 		flex: 1 ,
-		alignItems: 'center'
+		alignItems: 'center',
+		justifyContent: 'center'
 	},
 	logo : {
 		height: 100,
@@ -121,10 +135,9 @@ const styles = StyleSheet.create({
 		marginTop : 20, 
 		marginBottom : 20
 	},
-	text: { 
-		color : 'white'
-	},
-	input : {
-		color : 'white'
+	rowBox : {
+		flexDirection: 'row',
+		justifyContent : 'center',
+		alignItems : 'center'
 	}
 });
