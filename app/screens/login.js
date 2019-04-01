@@ -54,6 +54,7 @@ export default class Login extends React.Component{
 					></TextInput>
 
 					<TextInput mode="outlined" style={styles.input}
+						secureTextEntry={true}
 						label="Password"
 						value={this.state.password}
 						onChangeText={ text => { this.setState( {password : text } ) } }

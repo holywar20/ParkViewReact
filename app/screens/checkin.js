@@ -58,7 +58,7 @@ export default class CheckIn extends Component {
 		// TODO : Authentication check
 		const resetAction = StackActions.reset({ // Navigate to brand new stack, as we are 'authenticated'
 			index: 0,
-			actions: [NavigationActions.navigate({ routeName: 'ContactsScreen' })],
+			actions: [NavigationActions.navigate({ routeName: 'TabNavigationScreen' })],
 		});
 
 		this.navigation.dispatch(resetAction);

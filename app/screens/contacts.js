@@ -1,20 +1,16 @@
 import React, {Component} from 'react';
 import { StyleSheet } from "react-native";
 import { ScrollView } from 'react-native-gesture-handler';
-import { List , Button, Card} from 'react-native-paper';
-
-import ListItemButton from "../components/listitembutton";
+import { List , Button, Card, IconButton} from 'react-native-paper';
+import RNImmediatePhoneCall from 'react-native-immediate-phone-call';
 
 export default class Contacts extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			favData 		: [] , 
+			family 		: [] , 
 			careTeam 	: [] ,
 			onCall 		: [] ,
-			menuVisible : {
-				// A dictionary of true/false values to indicate 'which' menu should be open.
-			}
 		}
 
 		this.navigation = props.navigation;
@@ -28,28 +24,33 @@ export default class Contacts extends Component {
 		favorite : 'grade' , 
 	}
 
+	executeCall = () => {
+		RNImmediatePhoneCall.immediatePhoneCall('0123456789');
+	};
+
 	render() {
 		return (
 			<ScrollView style="styles.mainContainer">
+				
+				<Card style={styles.boxContainer }>
 				<List.Section>
 					<List.Subheader>On Call</List.Subheader>
 					{ this.state.onCall.map ( r => this.renderItem(r) ) }
 				</List.Section>
+				</Card>
 
-				<List.Section>
-					<List.Subheader>Favorites</List.Subheader>
-					{ this.state.favData.map ( r => this.renderItem(r) ) }
-				</List.Section>
-
+				<Card style={styles.boxContainer }>
 				<List.Section>
 					<List.Subheader>Care Team</List.Subheader>
 					{ this.state.careTeam.map ( r => this.renderItem(r) ) }
 				</List.Section>
+				</Card>
 
-				<Card style={styles.logoutContainer }>
-					<Button mode="contained">
-						Logout
-					</Button>
+				<Card style={styles.boxContainer }>
+				<List.Section>
+					<List.Subheader>Family</List.Subheader>
+					{ this.state.family.map ( r => this.renderItem(r) ) }
+				</List.Section>
 				</Card>
 
 			</ScrollView>
@@ -67,9 +68,9 @@ export default class Contacts extends Component {
 
 	componentDidMount(){
 		this.setState({
-			'favData'  : this.getFavorites() , 
-			'careTeam' : this.getCareTeam() ,
-			'onCall'   : this.getOnCall()
+			'family'  		: this.getFamily() , 
+			'careTeam' 		: this.getCareTeam() ,
+			'onCall'   		: this.getOnCall()
 		});
 	}
 		
@@ -91,30 +92,27 @@ export default class Contacts extends Component {
 				description = {data.relationship}
 				title={ data.name}
 				left= { () => <List.Icon icon={myIcon} /> }
-				right={ () => <ListItemButton favorite={ data.favorite } nav={ this.navigation } username={data.name} />}
+				right={ () => <IconButton icon={this.userTypeIcons.OnCall} onPress={this.executeCall}></IconButton>}
 			>
 			</List.Item> 
 		);
 	}
 
-	getFavorites(){
+	getFamily(){
 		favArray = [{ 
-			name : 'Abraham Lincoln',
-			relationship: 'Primary Care',
-			type			: 'Doctor',
-			favorite	 	: true,
+			name : 'Ned Stark',
+			relationship: 'Spouse',
+			type			: 'Family',
 			userKey : 1
 		}, { 
-			name : 'Dudette',
-			relationship : 'Spouse',
-			type			 : 'Freind',
-			favorite	 	: true,
+			name : 'Ayra Stark',
+			relationship : 'Daughter',
+			type			 : 'Family',
 			userKey : 2
 		}, {
-			name : 'Optimus Prime',
+			name : 'Jon Snow',
 			relationship : 'Friend',
 			type			 : 'Freind',
-			favorite	 	: true,
 			userKey : 3
 		}];
 
@@ -164,8 +162,8 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'center',
 	} , 
-	logoutContainer : {
-		padding: 20, 
-		margin: 20
+	boxContainer : {
+		padding: 10, 
+		margin: 10
 	}
 });

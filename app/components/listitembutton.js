@@ -36,22 +36,12 @@ export default class ListItemButton extends React.Component{
 
 	render(){
 		return(
-			<Menu 
-				visible={ this.state.menuVisible }
-				onDismiss={ this.toggleMenu }
-				anchor={ <IconButton 	
-										icon={this.menuIcon}
-										color="#BEC5C8" 
-										mode="contained" 
-										onPress={ this.toggleMenu }>
-							</IconButton> }>
-					<Menu.Item title="Call" onPress={ this.callScreenPressed } />
-					<Menu.Item title="Text" onPress={ this.chatButtonPressed } />
-					<Divider/> 
-					{ this.state.favorite && <Menu.Item title="Unfavorite" /> }
-					{ !this.state.favorite && <Menu.Item title="Favorite" /> }
-					
-				</Menu>
-		);
+			<IconButton 	
+				icon={this.menuIcon}
+				color="#BEC5C8" 
+				mode="contained" 
+				onPress={ this.toggleMenu }>
+			</IconButton> 
+		)
 	}
 }
