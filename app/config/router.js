@@ -32,8 +32,16 @@ var contactsScreen = {
 	}
 };
 
+var checkInScreen = { 
+	screen : CheckIn,
+	navigationOptions: {
+		tabBarLabel: "Check In"
+	}
+}
+
 
 const tabNavigator = createBottomTabNavigator({
+	CheckIn			: checkInScreen,
 	CalenderScreen : calenderScreen,
 	ContactsScreen : contactsScreen 
 });
@@ -78,12 +86,6 @@ const stackNavigator = createStackNavigator({
 		screen : Logout,
 		navigationOptions: () => ({
 			header : null
-		})
-	} ,
-	CheckInScreen :{ 
-		screen : CheckIn,
-		navigationOptions: () => ({
-			header: null
 		})
 	} ,
 	TabNavigationScreen : tabNavigator, 

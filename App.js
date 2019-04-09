@@ -5,7 +5,6 @@
  */
 
 import React, {Component} from 'react';
-import { Text , StyleSheet } from 'react-native';
 import StackNavigator from "./app/config/router";
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
@@ -22,12 +21,16 @@ const theme = {
 	}
 }
 
+const initialState = {
+	'data': 0
+}
+
 export default class App extends Component{
 	render() {
 		return (
-		<PaperProvider theme={theme}>
-			<StackNavigator></StackNavigator>
-		</PaperProvider>
+			<PaperProvider theme={theme}>
+				<StackNavigator></StackNavigator>
+			</PaperProvider>
 		);
 	}
 }

@@ -3,6 +3,8 @@ import { StyleSheet } from "react-native";
 import { ScrollView } from 'react-native-gesture-handler';
 import { List , Button, Card, IconButton} from 'react-native-paper';
 import RNImmediatePhoneCall from 'react-native-immediate-phone-call';
+import DataStore from "../config/datastore"
+
 
 export default class Contacts extends Component {
 	constructor(props){
@@ -67,10 +69,11 @@ export default class Contacts extends Component {
 	}
 
 	componentDidMount(){
+		
 		this.setState({
-			'family'  		: this.getFamily() , 
-			'careTeam' 		: this.getCareTeam() ,
-			'onCall'   		: this.getOnCall()
+			'family'  		: DataStore.getFamily() , 
+			'careTeam' 		: DataStore.getCareTeam() ,
+			'onCall'   		: DataStore.getOnCall()
 		});
 	}
 		
@@ -96,63 +99,6 @@ export default class Contacts extends Component {
 			>
 			</List.Item> 
 		);
-	}
-
-	getFamily(){
-		favArray = [{ 
-			name : 'Ned Stark',
-			relationship: 'Spouse',
-			type			: 'Family',
-			userKey : 1
-		}, { 
-			name : 'Ayra Stark',
-			relationship : 'Daughter',
-			type			 : 'Family',
-			userKey : 2
-		}, {
-			name : 'Jon Snow',
-			relationship : 'Friend',
-			type			 : 'Freind',
-			userKey : 3
-		}];
-
-		return favArray;
-	}
-
-	getCareTeam(){
-		careTeamArray = [{ 
-			name : 'George Washington',
-			relationship : 'Addiction Specialist',
-			type			 : 'Doctor',
-			favorite	 	 : false,
-			userKey 		 : 4
-		}, { 
-			name : 'Thomas Jefferson',
-			relationship : 'Psycologist',
-			type			 : 'Doctor',
-			favorite	 	 : false,
-			userKey : 5
-		}];
-
-		return careTeamArray;
-	}
-
-	getOnCall(){
-		onCallArray = [{ 
-			name : 'Iron Man',
-			relationship : 'EMT',
-			type			 : 'OnCall',
-			favorite	 	 : false,
-			userKey : 6
-		}, { 
-			name : 'Captain Marvel',
-			relationship : 'EMT',
-			type			 : 'OnCall',
-			favorite	 	 : false,
-			userKey : 7
-		}];
-
-		return onCallArray;
 	}
 }
 

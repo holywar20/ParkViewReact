@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Image, Keyboard, Text, View, StyleSheet} from "react-native";
 import { Checkbox , Button, TextInput, Card } from 'react-native-paper';
+import DataStore from '../config/datastore';
 /*
 	Color Pallet
 	Background Blue for forms #28546C
@@ -94,8 +95,8 @@ export default class Login extends React.Component{
 
 	loginUser(){
 		console.log("logging in user");
-
-		this.navigation.navigate('CheckInScreen', { username : this.state.username } );
+		DataStore.setKey( 'username' , this.state.username );
+		this.navigation.navigate('TabNavigationScreen');
 	};
 }
 
