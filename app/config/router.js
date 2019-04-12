@@ -16,26 +16,32 @@ import Calender	from '../screens/calender';
 
 import GeneralMenu from '../components/generalmenu';
 
+
 /* These can be either stack or tab navigators */
 var calenderScreen = {
 	screen : Calender, 
 	navigationOptions: {
-		tabBarLabel: "Calender"
+		tabBarLabel: "Calender",
+		swipeEnabled : true, 
+		tabBarIcon : <IconButton icon="date-range"></IconButton>
 	}
 }
 
 var contactsScreen = { 
 	screen : Contacts,
 	navigationOptions: {
-		title : "Calender",
-		tabBarLabel: "Contacts"
+		tabBarLabel: "Contacts",
+		swipeEnabled : true,
+		tabBarIcon : <IconButton icon="supervisor-account"></IconButton>
 	}
 };
 
 var checkInScreen = { 
 	screen : CheckIn,
 	navigationOptions: {
-		tabBarLabel: "Check In"
+		tabBarLabel: "Check In",
+		swipeEnabled : true ,
+		tabBarIcon : <IconButton icon="check-box"></IconButton>
 	}
 }
 
@@ -51,7 +57,7 @@ navigateToCheckin = () => {
 }
 
 navigateToHelp = () => {
-	RNImmediatePhoneCall.immediatePhoneCall('911x');
+	RNImmediatePhoneCall.immediatePhoneCall('9111');
 }
 
 navigateToLogout = () => {
@@ -66,11 +72,7 @@ tabNavigator.navigationOptions = ({ navigation }) => {
 	
 	return {
 		headerTitle : null,
-		headerLeft: GeneralMenu, 
-		headerRight: <IconButton icon="local-hospital" 
-					color="#f44" size={30}
-					onPress={ navigateToHelp }
-				></IconButton>
+		headerLeft: GeneralMenu
 	};
 }
 

@@ -1,9 +1,11 @@
-export default class DataStore{
-	// Internal API
+class DataStoreClass{
 
-	data = {}
-
-	static getFamily(){
+	constructor(){
+		this.auth = {}
+		this.data = {}
+	}
+	
+	getFamily(){
 		favArray = [{ 
 			name : 'Ned Stark',
 			relationship: 'Spouse',
@@ -27,7 +29,7 @@ export default class DataStore{
 		return favArray;
 	}
 
-	static getCareTeam(){
+	getCareTeam(){
 		careTeamArray = [{ 
 			name : 'George Washington',
 			relationship : 'Addiction Specialist',
@@ -47,7 +49,7 @@ export default class DataStore{
 		return careTeamArray;
 	}
 
-	static getOnCall(){
+	getOnCall(){
 		onCallArray = [{ 
 			name : 'Iron Man',
 			relationship : 'EMT',
@@ -67,11 +69,14 @@ export default class DataStore{
 		return onCallArray;
 	}
 
-	static setKey(key, value){
+	setKey( key, value ){
 		this.data[key] = value;
 	}
 
-	static getKey(){
+	getKey( key ){
 		return this.data[key];
 	}
 }
+
+let DataStore = new DataStoreClass()
+export default DataStore;

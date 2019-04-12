@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, ScrollView } from "react-native";
 import { Button , Card} from "react-native-paper";
 import { StackActions, NavigationActions } from 'react-navigation';
-
+import dataStoreObject from '../config/datastore';
 export default class CheckIn extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			username : props.navigation.state.params.username
+			username  : null
 		}
 
 		this.navigation = props.navigation;
@@ -15,38 +15,36 @@ export default class CheckIn extends Component {
 
 	render() {
 		return (
-			<View style={styles.mainContainer}>
-				<Card style={styles.welcomeBox}>
-					<Text style={styles.headerText}>Hello {this.state.username}!</Text>
-					<Text style={styles.headerText}>How are you feeling?</Text>
-				</Card>
+			<ScrollView>
+				<View style={styles.mainContainer}>
+					<Card style={styles.welcomeBox}>
+						<Text style={styles.headerText}>Hello {this.state.username}!</Text>
+						<Text style={styles.headerText}>How are you feeling?</Text>
+					</Card>
 
-				<Card style={styles.card}>
-					<Card.Content>
-						<Button icon="healing" mode="contained" color="#f00"
-							uppercase={false}
-							style={styles.buttons}
-							onPress={ () => { this.helpPress() } }>I Need Help!</Button>
-						<Button icon="check-circle" mode="contained"
-							uppercase={false}
-							style={styles.buttons}
-							onPress={ () => { this.checkinPress() } }>Checkin</Button>
-						
-						<Button 	mode="contained"
-									compact={true}
-									color="#BEC5C8"
-									style={styles.logoutButton}
-									onPress={ () => { this.logoutPress() } } >Logout</Button>
-					</Card.Content>
-				</Card>
-			
-				<View styles={styles.spacer}></View>
-			</View>
+					<Card style={styles.card}>
+						<Card.Content>
+							<Button icon="healing" mode="contained" color="#f00"
+								uppercase={false}
+								style={styles.buttons}
+								onPress={ () => { this.helpPress() } }>I Need Help!</Button>
+							<Button icon="check-circle" mode="contained"
+								uppercase={false}
+								style={styles.buttons}
+								onPress={ () => { this.checkinPress() } }>Checkin</Button>
+						</Card.Content>
+					</Card>
+				
+					<View styles={styles.spacer}></View>
+				</View>
+			</ScrollView>
 		);
 	}
 
-	logoutPress(){
-		this.navigation.navigate('LogoutScreen' , {} );
+	componentDidMount(){
+		this.setState({
+			username : dataStoreObject.getKey('username')
+		})
 	}
 
 	helpPress(){
@@ -56,12 +54,8 @@ export default class CheckIn extends Component {
 
 	checkinPress(){
 		// TODO : Authentication check
-		const resetAction = StackActions.reset({ // Navigate to brand new stack, as we are 'authenticated'
-			index: 0,
-			actions: [NavigationActions.navigate({ routeName: 'TabNavigationScreen' })],
-		});
-
-		this.navigation.dispatch(resetAction);
+		console.log("Checkin pressed!")
+		//this.navigation.dispatch(resetAction);
 	}
 }
 
@@ -75,8 +69,11 @@ const styles = StyleSheet.create({
 		flex: .5,
 		justifyContent: 'center',
 		alignItems: 'center',
-		padding: 20,
-		margin: 20
+		borderRadius: 10, 
+		borderColor : '#3DA143',
+		borderWidth : 1,
+		padding: 5, 
+		margin: 5
 	},
 	buttons : {
 		padding: 10,
@@ -92,9 +89,11 @@ const styles = StyleSheet.create({
 		margin: 20
 	}, 
 	card: {
-		flex: 1,
-		padding: 20,
-		margin: 20
+		borderRadius: 10, 
+		borderColor : '#3DA143',
+		borderWidth : 1,
+		padding: 5, 
+		margin: 5
 	}, 
 	headerText: {
 		fontSize: 20,

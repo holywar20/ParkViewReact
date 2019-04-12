@@ -30,7 +30,6 @@ export default class GeneralMenu extends React.Component{
 								mode="contained" 
 								onPress={ this.toggleMenu }>
 							</IconButton> }>
-				<Menu.Item title="Checkin" onPress={ console.log("pressed") } />
 				<Menu.Item title="Logout" onPress={ console.log("pressed") } />
 			</Menu>
 		);

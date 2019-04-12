@@ -22,5 +22,11 @@ export default class Chat extends Component {
 const styles = StyleSheet.create({
 	mainContainer: {
 		
+	} , 
+	chatter : {
+
+	} , 
+	chatee : {
+
 	}
 })

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text } from "react-native";
+import { View, Text , ScrollView , Button } from "react-native";
 import { Calendar, CalendarList, Agenda , Arrow} from 'react-native-calendars';
 
 export default class Logout extends React.Component{
@@ -26,6 +26,7 @@ export default class Logout extends React.Component{
 
 	render(){
 		return(
+			<ScrollView>
 			<Calendar
 				current={ Date() }
 
@@ -53,6 +54,15 @@ export default class Logout extends React.Component{
 				onPressArrowLeft={substractMonth => substractMonth()}
 				onPressArrowRight={addMonth => addMonth()}
 				/>
+			<View style= { styles.buttonContain } >
+				<Button title="Add"></Button>
+				<Button title="List"></Button>
+			</View>
+			</ScrollView>
 		);
 	}
+}
+
+const styles = {
+
 }

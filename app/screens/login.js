@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import { Image, Keyboard, Text, View, StyleSheet} from "react-native";
+import { Image, Keyboard, Text, View, StyleSheet, ScrollView } from "react-native";
 import { Checkbox , Button, TextInput, Card } from 'react-native-paper';
 import DataStore from '../config/datastore';
 /*
 	Color Pallet
-	Background Blue for forms #28546C
+	// #3DA143 - Parkview Green
+
 */ 
 export default class Login extends React.Component{
 	constructor(props){
@@ -13,7 +14,9 @@ export default class Login extends React.Component{
 			logoDisplay : 1,
 			username : null,
 			password : null,
-			checked : true
+			checked : true,
+			validUsername : false, 
+			validPassword : false
 		}
 
 		this.navigation = props.navigation;
@@ -40,12 +43,14 @@ export default class Login extends React.Component{
 
 	render() {
 		return ( 
+		<ScrollView>
 		<View style ={styles.mainContainer}>
 			<View style={styles.welcomeContainer}>
-				<Text style={styles.welcome}>A ParkView Demo</Text>
+				<Image style={styles.header} source={require('../assetts/parkview.jpg')}></Image>
+				<Text>SECRET PRODUCT NAME!</Text>
 			</View>
 			
-			<Card>
+			<Card style={styles.cardBox} >
 				<Card.Content>
 
 					<TextInput mode="outlined" style={styles.input}
@@ -68,6 +73,7 @@ export default class Login extends React.Component{
 					</View>
 
 					<Button 
+						disabled={ !(this.state.password && this.state.username) }
 						style={styles.button} 
 						mode="contained"
 						accessabilityLabel="Login"
@@ -79,10 +85,11 @@ export default class Login extends React.Component{
 
 			{ this.state.logoDisplay && 
 			<View style={styles.logoContainer}>
-				<Text></Text>
-				<Image style={styles.logo} source={require('../assetts/1280pxAvaya.png')}/>
+				<Text>An Application By</Text>
+				<Image style={ styles.logo } source={require('../assetts/ipc.jpg')}/>
 			</View>}
 		</View>
+		</ScrollView>
 		);
 	}
 
@@ -107,17 +114,17 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	welcomeContainer:{
-		padding: 10 
+		padding: 10 ,
+		alignItems : 'center'
 	},
-	welcome:{
-		fontSize: 20, 
-		color : 'black',
-		textAlign: 'center'
+	header : {
+		height: 50,
+		resizeMode: 'contain',
+		alignItems: 'center'
 	},
 	inputContainer: {
 		flex: 1.5,
 		justifyContent: 'center',
-		borderRadius: 10, 
 		padding: 10,
 		margin : 10
 	},
@@ -127,8 +134,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center'
 	},
 	logo : {
-		height: 100,
-		width: 300,
+		height: 50,
 		resizeMode : 'contain'
 	},
 	button : {
@@ -141,5 +147,12 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent : 'center',
 		alignItems : 'center'
+	}, 
+	cardBox: {
+		borderRadius: 10, 
+		borderColor : '#3DA143',
+		borderWidth : 1,
+		padding: 5, 
+		margin: 5
 	}
 });
