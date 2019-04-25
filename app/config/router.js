@@ -4,47 +4,29 @@ import { Text, StyleSheet, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
 
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
-import RNImmediatePhoneCall from 'react-native-immediate-phone-call';
 
-import Login 		from '../screens/login';
-import Logout		from '../screens/logout';
-import Contacts 	from '../screens/contacts';
-import Help			from '../screens/help';
-import CheckIn		from '../screens/checkin';
-import Chat			from '../screens/chat';
-import Calender	from '../screens/calender';
-
+/* A Globalish menu meant to be available on most screens except the stand alone screens */
 import GeneralMenu from '../components/generalmenu';
 
+/* Stand Alone screens */
+import Login 		from '../screens/login';
+import Logout		from '../screens/logout';
 
-/* These can be either stack or tab navigators */
-var calenderScreen = {
-	screen : Calender, 
-	navigationOptions: {
-		tabBarLabel: "Calender",
-		swipeEnabled : true, 
-		tabBarIcon : <IconButton icon="date-range"></IconButton>
-	}
-}
+/* Stack navigation */
+import Chat					from '../screens/stacknavigation/chat';
+import AddAppointment 	from '../screens/stacknavigation/addappointment';
+import ContactDetail 	from '../screens/stacknavigation/contactdetail';
+import ListAppointment	from '../screens/stacknavigation/listappointment';
 
-var contactsScreen = { 
-	screen : Contacts,
-	navigationOptions: {
-		tabBarLabel: "Contacts",
-		swipeEnabled : true,
-		tabBarIcon : <IconButton icon="supervisor-account"></IconButton>
-	}
-};
+/* Tab navigation */
+import Contacts 	from '../screens/tabnavigation/contacts';
+import CheckIn		from '../screens/tabnavigation/checkin';
+import Calender	from '../screens/tabnavigation/calender';
 
-var checkInScreen = { 
-	screen : CheckIn,
-	navigationOptions: {
-		tabBarLabel: "Check In",
-		swipeEnabled : true ,
-		tabBarIcon : <IconButton icon="check-box"></IconButton>
-	}
-}
-
+/* Tab navigation set up. These normally fit in a tab, but can also stack as needed.  */
+var calenderScreen = { screen : Calender }
+var contactsScreen = { screen : Contacts }
+var checkInScreen = {  screen : CheckIn }
 
 const tabNavigator = createBottomTabNavigator({
 	CheckIn			: checkInScreen,
@@ -52,66 +34,38 @@ const tabNavigator = createBottomTabNavigator({
 	ContactsScreen : contactsScreen 
 });
 
-navigateToCheckin = () => {
-
-}
-
-navigateToHelp = () => {
-	RNImmediatePhoneCall.immediatePhoneCall('9111');
-}
-
-navigateToLogout = () => {
-
-}
-
 tabNavigator.navigationOptions = ({ navigation }) => {
 	const { routeName } = navigation.state.routes[navigation.state.index];
 	
 	// You can do whatever you like here to pick the title based on the route name
-	const headerTitle = routeName;
-	
+	var title = null;
+
+	if( routeName == "CheckIn")
+		title = "Check In"
+	else if ( routeName == "CalenderScreen")
+		title = "Appointments"
+	else if ( routeName == "ContactsScreen" )
+		title = "Contact List"
+
 	return {
-		headerTitle : null,
+		headerTitle : title,
 		headerLeft: GeneralMenu
 	};
 }
 
-
+/* Stack navigator contains the tab navigator, and all screens before and after. */
 const stackNavigator = createStackNavigator({
-	LoginScreen : { 
-		screen : Login,
-		navigationOptions: () => ({
-			header : null
-		})
-	} ,
-	LogoutScreen : { 
-		screen : Logout,
-		navigationOptions: () => ({
-			header : null
-		})
-	} ,
-	TabNavigationScreen : tabNavigator, 
-	HelpScreen : {
-		screen : Help, 
-		navigationOptions:() =>({
-			headerTitle: <Text styles={styles.header}>Helps</Text> , 
-			headerRight: <IconButton icon="local-hospital" 
-				color="#f44" size={30}
-				onPress={ () => { console.log("Pressing") } }
-				></IconButton>
-		})
-	}, 
-	ChatScreen : chatScreen  = { 
-		screen : Chat, 
-		navigationOptions:() =>({
-			headerTitle: <Text styles={styles.header}>Targets Name</Text> , 
-			headerRight: <IconButton icon="phone" 
-				color="#449" size={35}
-				onPress={ () => { console.log("Pressing") } }
-				></IconButton>
-		})
-	},
-	ContactsScreen : contactsScreen
+	/* Stand alone Screens */
+	LoginScreen : { screen : Login  } ,
+	LogoutScreen : { screen : Logout } ,
+	/* Tab navigator. Meant to be the 'root' screen of the application */
+	TabNavigationScreen : tabNavigator,
+	
+	/* These screens ONLY stack up */ 
+	ChatScreen : { screen : Chat },
+	ContactDetailScreen :{ screen : ContactDetail }, 
+	AddAppointmentScreen : { screen : AddAppointment },
+	ListAppointmentScreen : { screen : ListAppointment }
 } , {
 	headerMode: 'screen',
 	headerLayoutPreset : 'center' 

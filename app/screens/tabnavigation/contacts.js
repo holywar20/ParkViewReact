@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import { StyleSheet } from "react-native";
 import { ScrollView } from 'react-native-gesture-handler';
-import { List , Button, Card, IconButton} from 'react-native-paper';
+import { Text, List , Button, Card, IconButton, Divider} from 'react-native-paper';
+
+
 import RNImmediatePhoneCall from 'react-native-immediate-phone-call';
-import DataStore from "../config/datastore"
+import DataStore from "../../config/datastore";
 
 
 export default class Contacts extends Component {
@@ -13,10 +15,22 @@ export default class Contacts extends Component {
 			family 		: [] , 
 			careTeam 	: [] ,
 			onCall 		: [] ,
+			expanded		: {
+				onCall : true, 
+				family : false, 
+				careTeam : false
+			}
 		}
 
 		this.navigation = props.navigation;
 	}
+
+	static navigationOptions = ({ navigation }) => ({ 
+		tabBarLabel: "Contacts",
+		swipeEnabled : true,
+		tabBarIcon : <IconButton icon="supervisor-account"></IconButton>
+	});
+	
 	
 	userTypeIcons = {
 		Doctor  : 'healing',
@@ -34,29 +48,36 @@ export default class Contacts extends Component {
 		return (
 			<ScrollView style="styles.mainContainer">
 				
-				<Card style={styles.boxContainer }>
-				<List.Section>
-					<List.Subheader>On Call</List.Subheader>
-					{ this.state.onCall.map ( r => this.renderItem(r) ) }
-				</List.Section>
-				</Card>
-
-				<Card style={styles.boxContainer }>
-				<List.Section>
-					<List.Subheader>Care Team</List.Subheader>
-					{ this.state.careTeam.map ( r => this.renderItem(r) ) }
-				</List.Section>
-				</Card>
-
-				<Card style={styles.boxContainer }>
-				<List.Section>
-					<List.Subheader>Family</List.Subheader>
-					{ this.state.family.map ( r => this.renderItem(r) ) }
-				</List.Section>
-				</Card>
+				<List.Accordion 
+					left= { () => <List.Icon icon="phone"></List.Icon>  }
+					title="On Call">
+					<List.Section>
+						{ this.state.onCall.map ( r => this.renderItem(r) ) }
+					</List.Section>
+				</List.Accordion>
+				<Divider />
+				<List.Accordion 
+					left= { () => <List.Icon icon="healing"></List.Icon>  }
+					title="Care Team">
+					<List.Section>
+						{ this.state.careTeam.map ( r => this.renderItem(r) ) }
+					</List.Section>
+				</List.Accordion>
+				<Divider />
+				<List.Accordion 
+					left= { () => <List.Icon icon="people"></List.Icon>  }
+					title="Family & Freinds">
+					<List.Section>
+						{ this.state.family.map ( r => this.renderItem(r) ) }
+					</List.Section>
+				</List.Accordion>
 
 			</ScrollView>
 		);
+	}
+
+	toggle = () => {
+
 	}
 
 	logoutButtonPress = () => {
@@ -76,6 +97,11 @@ export default class Contacts extends Component {
 			'onCall'   		: DataStore.getOnCall()
 		});
 	}
+
+	listItemPress( data ){
+		console.log(data);
+		this.navigation.navigate('ChatScreen' , data );
+	}
 		
 	renderItem( data ){
 		// Figure out which icons to use. 
@@ -84,7 +110,7 @@ export default class Contacts extends Component {
 		if( data.favorite ){
 			myIcon = this.userTypeIcons['favorite'];
 		} else {
-			myIcon = this.userTypeIcons['Friend'];
+			myIcon = "";
 		}
 
 		if( data.relationship[0] != "~")
@@ -94,7 +120,8 @@ export default class Contacts extends Component {
 			<List.Item key ={data.userKey} 
 				description = {data.relationship}
 				title={ data.name}
-				left= { () => <List.Icon icon={myIcon} /> }
+				onPress = { () => this.listItemPress( data ) }
+				left ={ () => <Text></Text>} 
 				right={ () => <IconButton icon={this.userTypeIcons.OnCall} onPress={this.executeCall}></IconButton>}
 			>
 			</List.Item> 

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { Text, View, StyleSheet, ScrollView } from "react-native";
-import { Button , Card} from "react-native-paper";
+import { Button , Card , IconButton } from "react-native-paper";
 import { StackActions, NavigationActions } from 'react-navigation';
-import dataStoreObject from '../config/datastore';
+import dataStoreObject from '../../config/datastore';
 export default class CheckIn extends Component {
 	constructor(props){
 		super(props);
@@ -12,6 +12,13 @@ export default class CheckIn extends Component {
 
 		this.navigation = props.navigation;
 	}
+
+	static navigationOptions = ({ navigation }) => ({ 
+		tabBarLabel: "Check In",
+		swipeEnabled : true ,
+		tabBarIcon : <IconButton icon="check-box"></IconButton>
+	});
+	
 
 	render() {
 		return (

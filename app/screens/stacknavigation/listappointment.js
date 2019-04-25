@@ -11,10 +11,14 @@ export default class Logout extends React.Component{
 		this.navigation = props.navigation;
 	}
 
+	static navigationOptions = ({ navigation }) => ({ 
+		title : "Appointments"
+	})
+
 	render(){
 		return(
 			<View>
-				Logout Screen
+				Appointments list
 			</View>
 		);
 	}

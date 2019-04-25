@@ -11,6 +11,10 @@ export default class Logout extends React.Component{
 		this.navigation = props.navigation;
 	}
 
+	static navigationOptions = ({ navigation }) => ({ 
+		headerTitle : null
+	});
+
 	render(){
 		return(
 			<View>

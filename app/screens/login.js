@@ -22,6 +22,10 @@ export default class Login extends React.Component{
 		this.navigation = props.navigation;
 	}
 
+	static navigationOptions = ({ navigation }) => ({ 
+		headerTitle : null, header: null
+	});
+
 	componentDidMount(){ 
 		this.keyboardUp = Keyboard.addListener(
 			'keyboardDidShow' , () => { // A hack that hides the logo when keyboard is up to keep alignment straight. 
@@ -47,7 +51,7 @@ export default class Login extends React.Component{
 		<View style ={styles.mainContainer}>
 			<View style={styles.welcomeContainer}>
 				<Image style={styles.header} source={require('../assetts/parkview.jpg')}></Image>
-				<Text>SECRET PRODUCT NAME!</Text>
+				<Text>Telemedicine Application</Text>
 			</View>
 			
 			<Card style={styles.cardBox} >
@@ -101,7 +105,6 @@ export default class Login extends React.Component{
 	}
 
 	loginUser(){
-		console.log("logging in user");
 		DataStore.setKey( 'username' , this.state.username );
 		this.navigation.navigate('TabNavigationScreen');
 	};

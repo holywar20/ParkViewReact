@@ -1,15 +1,33 @@
 import React, {Component} from 'react';
 import { View, Text , ScrollView , Button } from "react-native";
+import { IconButton , Divider } from "react-native-paper";
 import { Calendar, CalendarList, Agenda , Arrow} from 'react-native-calendars';
 
+import DataStore from "../../config/datastore";
+
 export default class Logout extends React.Component{
+	state = {
+		futureDates : [],
+		pastDates : [],
+		openFab : false
+	};
+	
 	constructor(props){
 		super(props);
-		this.state = {
-			
-		}
 
 		this.navigation = props.navigation;
+	}
+
+	static navigationOptions = ({ navigation }) => ({
+		tabBarLabel: "Calender",
+		swipeEnabled : true, 
+		tabBarIcon : <IconButton icon="date-range"></IconButton>
+	});
+
+	componentDidMount() {
+		var myData = DataStore.getAppointments();
+
+		console.log(myData);
 	}
 
 	onDayPress = (day) =>{
@@ -26,7 +44,7 @@ export default class Logout extends React.Component{
 
 	render(){
 		return(
-			<ScrollView>
+		<ScrollView>
 			<Calendar
 				current={ Date() }
 
@@ -54,15 +72,26 @@ export default class Logout extends React.Component{
 				onPressArrowLeft={substractMonth => substractMonth()}
 				onPressArrowRight={addMonth => addMonth()}
 				/>
-			<View style= { styles.buttonContain } >
-				<Button title="Add"></Button>
-				<Button title="List"></Button>
-			</View>
-			</ScrollView>
+				<Divider></Divider>
+				<View style={styles.buttonContain}>
+					<IconButton style={ styles.iconButton } icon="today"></IconButton>
+					<IconButton></IconButton>
+					<IconButton style={ styles.iconButton } icon="list"></IconButton>
+					<IconButton></IconButton>
+					<IconButton style={ styles.iconButton } icon="refresh"></IconButton>
+				</View>
+
+		</ScrollView>
 		);
 	}
 }
 
 const styles = {
-
+	buttonContain : {
+		flexDirection: 'row',
+		justifyContent: 'center'
+	}, 
+	iconButton : {
+		
+	}
 }

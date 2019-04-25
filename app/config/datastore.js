@@ -1,10 +1,37 @@
+import DataFetcher from "./datafetcher";
+import { JsonClone } from "./helperfunctions";
+
 class DataStoreClass{
 
 	constructor(){
 		this.auth = {}
 		this.data = {}
+		this.appointments = {}
+	}
+
+	targetUrl = "http://localhost:8000/"
+
+	myPrototypes = {
+		'auth' : {
+
+		},
+		'appointments' : {
+			"id": null ,
+			"user_id": null,
+			"contact_id": null ,
+			"datetime": null ,
+			"warning_level": null,
+			"pushable": false,
+			"attended": false
+		}
 	}
 	
+	getPrototype( protoName ){
+		var thisPrototype = this.myPrototypes[protoName];
+		var newCopy = JsonClone( thisPrototype );
+		return newCopy;
+	}
+
 	getFamily(){
 		favArray = [{ 
 			name : 'Ned Stark',
@@ -67,6 +94,12 @@ class DataStoreClass{
 		}];
 
 		return onCallArray;
+	}
+
+	getAppointments(){
+		trueUrl = this.targetUrl + "/appointments/index/";
+
+		return fetch(URL).then((res) => res.json() );
 	}
 
 	setKey( key, value ){
