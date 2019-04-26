@@ -4,6 +4,7 @@ import { IconButton , Divider } from "react-native-paper";
 import { Calendar, CalendarList, Agenda , Arrow} from 'react-native-calendars';
 
 import DataStore from "../../config/datastore";
+import DataFetcher from '../../config/datafetcher';
 
 export default class Logout extends React.Component{
 	state = {
@@ -25,9 +26,17 @@ export default class Logout extends React.Component{
 	});
 
 	componentDidMount() {
-		var myData = DataStore.getAppointments();
+		DataFetcher.appointments.index( 10 )
+		.then(  ( res ) => {
+			return res
+		})
+		.then( ( response ) => {
+			console.log(response);
+		});
+	}
 
-		console.log(myData);
+	loadCalenderData(){
+		
 	}
 
 	onDayPress = (day) =>{
@@ -78,7 +87,10 @@ export default class Logout extends React.Component{
 					<IconButton></IconButton>
 					<IconButton style={ styles.iconButton } icon="list"></IconButton>
 					<IconButton></IconButton>
-					<IconButton style={ styles.iconButton } icon="refresh"></IconButton>
+					<IconButton 
+						style={ styles.iconButton } 
+						icon="refresh">
+					</IconButton>
 				</View>
 
 		</ScrollView>

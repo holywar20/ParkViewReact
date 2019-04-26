@@ -8,9 +8,7 @@ class DataStoreClass{
 		this.data = {}
 		this.appointments = {}
 	}
-
-	targetUrl = "http://localhost:8000/"
-
+	
 	myPrototypes = {
 		'auth' : {
 
@@ -99,7 +97,8 @@ class DataStoreClass{
 	getAppointments(){
 		trueUrl = this.targetUrl + "/appointments/index/";
 
-		return fetch(URL).then((res) => res.json() );
+		return fetch(trueUrl)
+			.then( (res) => console.log(res) );
 	}
 
 	setKey( key, value ){
