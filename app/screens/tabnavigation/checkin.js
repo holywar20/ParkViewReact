@@ -3,11 +3,14 @@ import { Text, View, StyleSheet, ScrollView } from "react-native";
 import { Button , Card , IconButton } from "react-native-paper";
 import { StackActions, NavigationActions } from 'react-navigation';
 import dataStoreObject from '../../config/datastore';
+import { timeConverter } from "../../config/helperfunctions";
+
 export default class CheckIn extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			username  : null
+			username  : null,
+			checkinDate : null
 		}
 
 		this.navigation = props.navigation;
@@ -41,6 +44,15 @@ export default class CheckIn extends Component {
 								onPress={ () => { this.checkinPress() } }>Checkin</Button>
 						</Card.Content>
 					</Card>
+
+					<Card style={styles.card}>
+						<Text style={styles.headerText}>
+							Last Checkin : April 27th 6:34 Pm
+						</Text>
+						<Text style={styles.headerText}>
+							Checkin Due : April 28th 7:00 Pm
+						</Text>
+					</Card>
 				
 					<View styles={styles.spacer}></View>
 				</View>
@@ -50,7 +62,8 @@ export default class CheckIn extends Component {
 
 	componentDidMount(){
 		this.setState({
-			username : dataStoreObject.getKey('username')
+			username : dataStoreObject.getKey('username'),
+			checkinDate : Date.now()
 		})
 	}
 

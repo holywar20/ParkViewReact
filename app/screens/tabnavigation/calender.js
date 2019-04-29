@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { View, Text , ScrollView , Button } from "react-native";
-import { IconButton , Divider } from "react-native-paper";
+import { IconButton , Divider, Colors } from "react-native-paper";
 import { Calendar, CalendarList, Agenda , Arrow} from 'react-native-calendars';
 
 import DataStore from "../../config/datastore";
@@ -37,6 +37,10 @@ export default class Logout extends React.Component{
 
 	loadCalenderData(){
 		
+	}
+
+	onNewAppointmentPress = () => {
+		this.navigation.navigate('AddAppointmentScreen' , {}  );
 	}
 
 	onDayPress = (day) =>{
@@ -83,11 +87,19 @@ export default class Logout extends React.Component{
 				/>
 				<Divider></Divider>
 				<View style={styles.buttonContain}>
-					<IconButton style={ styles.iconButton } icon="today"></IconButton>
-					<IconButton></IconButton>
-					<IconButton style={ styles.iconButton } icon="list"></IconButton>
+					<IconButton 
+						onPress = { this.onNewAppointmentPress }
+						color={Colors.blue400} 
+						style={ styles.iconButton } 
+						icon="today"></IconButton>
 					<IconButton></IconButton>
 					<IconButton 
+						color={Colors.blue400} 
+						style={ styles.iconButton } 
+						icon="list"></IconButton>
+					<IconButton></IconButton>
+					<IconButton 
+						color={Colors.blue400}
 						style={ styles.iconButton } 
 						icon="refresh">
 					</IconButton>

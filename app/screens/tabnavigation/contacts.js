@@ -7,7 +7,6 @@ import { Text, List , Button, Card, IconButton, Divider} from 'react-native-pape
 import RNImmediatePhoneCall from 'react-native-immediate-phone-call';
 import DataStore from "../../config/datastore";
 
-
 export default class Contacts extends Component {
 	constructor(props){
 		super(props);
@@ -40,7 +39,9 @@ export default class Contacts extends Component {
 		favorite : 'grade' , 
 	}
 
-	executeCall = () => {
+	executeCall = ( targetName ) => {
+		//console.log(targetName);
+		//this.navigation.navigate('CallScreen' , { 'username' : targetName } );
 		RNImmediatePhoneCall.immediatePhoneCall('0123456789');
 	};
 

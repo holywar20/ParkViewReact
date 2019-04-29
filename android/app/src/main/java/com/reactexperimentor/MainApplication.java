@@ -10,7 +10,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.oney.WebRTCModule.WebRTCModulePackage;  
+//import com.oney.WebRTCModule.WebRTCModulePackage;  
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,8 +29,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new RNImmediatePhoneCallPackage(),
             new VectorIconsPackage(),
-            new RNGestureHandlerPackage(),
-            new WebRTCModulePackage()  
+            new RNGestureHandlerPackage()
+            //new WebRTCModulePackage()  
       );
     }
 

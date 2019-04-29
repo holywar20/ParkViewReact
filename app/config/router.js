@@ -17,6 +17,7 @@ import Chat					from '../screens/stacknavigation/chat';
 import AddAppointment 	from '../screens/stacknavigation/addappointment';
 import ContactDetail 	from '../screens/stacknavigation/contactdetail';
 import ListAppointment	from '../screens/stacknavigation/listappointment';
+import Call					from '../screens/stacknavigation/call'
 
 /* Tab navigation */
 import Contacts 	from '../screens/tabnavigation/contacts';
@@ -55,17 +56,18 @@ tabNavigator.navigationOptions = ({ navigation }) => {
 
 /* Stack navigator contains the tab navigator, and all screens before and after. */
 const stackNavigator = createStackNavigator({
-	/* Stand alone Screens */
+	/* Stand alone Screens - These are part of the stack, but configured to not have 'back' buttons in the header, effectively making them stand-alone. */
 	LoginScreen : { screen : Login  } ,
 	LogoutScreen : { screen : Logout } ,
-	/* Tab navigator. Meant to be the 'root' screen of the application */
+	/* Tab navigator. Meant to be the root 'screen' of the application. Navigation away from these screens will add to the stack.  */
 	TabNavigationScreen : tabNavigator,
 	
-	/* These screens ONLY stack up */ 
-	ChatScreen : { screen : Chat },
-	ContactDetailScreen :{ screen : ContactDetail }, 
-	AddAppointmentScreen : { screen : AddAppointment },
-	ListAppointmentScreen : { screen : ListAppointment }
+	/* Navigate to these screens by name when you want to add to the stack.  */ 
+	ChatScreen 					: { screen : Chat },
+	ContactDetailScreen		: { screen : ContactDetail }, 
+	AddAppointmentScreen		: { screen : AddAppointment },
+	ListAppointmentScreen	: { screen : ListAppointment },
+	CallScreen 					: { screen : Call }
 } , {
 	headerMode: 'screen',
 	headerLayoutPreset : 'center' 
